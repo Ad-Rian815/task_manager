@@ -1,153 +1,153 @@
-# Task Manager
+Task Manager
 
-A full-stack task management application built with React, Express, and SQLite.
+A simple full-stack task management application built with React, Express, and SQLite.
 
-## Features
+Features
 
-- User authentication (register, login)
-- Create, read, update, delete tasks
-- Filter tasks by status (all, pending, completed)
-- JWT-based session management
-- Responsive UI with Tailwind CSS
+User authentication (register & login)
 
-## Project Structure
+Create, read, update, delete tasks
 
-```
+Filter tasks by status: all, pending, completed
+
+JWT-based session management
+
+Responsive UI with Tailwind CSS
+
+Project Structure
 .
-├── client/                 # React frontend (Vite)
+├── client/                 # React frontend
 │   ├── src/
-│   │   ├── pages/         # Login, Register, TasksPage
-│   │   ├── components/    # TaskForm, TaskList
-│   │   ├── api/           # API client
+│   │   ├── pages/          # Login, Register, TasksPage
+│   │   ├── components/     # TaskForm, TaskList
+│   │   ├── api/            # API client
 │   │   ├── App.tsx
 │   │   └── main.tsx
 │   ├── index.html
-│   ├── vite.config.ts
 │   └── package.json
-├── server/                # Express backend
-│   ├── models/            # Sequelize models (User, Task)
-│   ├── routes/            # Auth, Tasks endpoints
-│   ├── middleware/        # JWT authentication
+├── server/                 # Express backend
+│   ├── models/             # Sequelize models (User, Task)
+│   ├── routes/             # Auth, Tasks endpoints
+│   ├── middleware/         # JWT authentication
 │   ├── app.js
-│   ├── .env               # Environment variables
+│   ├── .env                # Environment variables
 │   └── package.json
-└── package.json           # Root package.json with scripts
-```
+└── package.json            # Root scripts
 
-## Setup
+Setup Instructions
+1. Prerequisites
 
-### Prerequisites
+Node.js 16+ and npm
 
-- Node.js 16+ and npm
+2. Install Dependencies
 
-### Installation
+From the project root:
 
-1. **Clone and install dependencies:**
-
-```bash
 npm run install-all
-```
 
-2. **Initialize the database:**
 
-```bash
-npm run init-db
-```
+This will install dependencies for both server and client.
 
-This creates the SQLite database at `server/models/dev.sqlite` and initializes the User and Task tables.
+3. Configure Environment Variables
 
-3. **Configure environment variables:**
+Copy the example file:
 
-Copy `server/.env.example` to `server/.env` and update values if needed:
+cp server/.env.example server/.env
 
-```bash
-JWT_SECRET=your_secret_key_change_in_production
+
+Update the values if needed:
+
+JWT_SECRET=your_secret_key
 PORT=4000
 DATABASE_FILE=./models/dev.sqlite
 NODE_ENV=development
-```
 
-## Running
+4. Initialize the Database
+npm run init-db
 
-### Development Mode (both server and client)
 
-```bash
+Creates SQLite database at server/models/dev.sqlite
+
+Initializes users and tasks tables
+
+Running the Project
+Start Both Servers
+
+From the project root (or separate terminals):
+
+cd server
+npm start
+
+cd client
 npm run dev
-```
 
-This will start:
-- **Server** on `http://localhost:4000`
-- **Client** on `http://localhost:3000`
 
-### Server Only
+✅ Server: http://localhost:4000
+ (Express API)
+✅ Client: http://localhost:3000
+ (React app)
 
-```bash
+Open http://localhost:3000 in your browser to use the Task Manager.
+
+Optional: Run Only Server or Client
+
+Server only:
+
 npm run server:dev
-```
 
-Uses `nodemon` for hot-reload. Logs requests and errors to console.
 
-### Client Only
+Client only:
 
-```bash
 npm run client:dev
-```
 
-Vite dev server with hot-module reload on `http://localhost:3000`.
-
-### Production Build
-
-```bash
+Production Build (Frontend)
 npm run client:build
-```
-
-Outputs to `client/dist/`. Serve with:
-
-```bash
 npm run client:preview
-```
 
-## API Endpoints
 
-### Authentication
+Output: client/dist/
 
-- `POST /api/auth/register` – Create a new user
-  - Body: `{ email, password, name? }`
-  - Response: `{ token, user }`
+Can be served with any static server
 
-- `POST /api/auth/login` – Authenticate user
-  - Body: `{ email, password }`
-  - Response: `{ token, user }`
+API Endpoints
+Authentication
 
-### Tasks (requires authentication)
+POST /api/auth/register – Create new user
 
-- `GET /api/tasks?filter=all|pending|completed` – List user's tasks
-- `POST /api/tasks` – Create a task
-  - Body: `{ title, description? }`
-- `PUT /api/tasks/:id` – Update a task
-  - Body: `{ title?, description?, completed? }`
-- `DELETE /api/tasks/:id` – Delete a task
+Body: { email, password, name? }
 
-## Troubleshooting
+Response: { token, user }
 
-### Port 4000 is in use
+POST /api/auth/login – Login user
 
-Kill the process on port 4000 or change `PORT` in `server/.env`.
+Body: { email, password }
 
-### Client cannot connect to API
+Response: { token, user }
 
-Ensure server is running on port 4000. The client uses Vite's proxy to forward `/api` requests to the server.
+Tasks (Requires Authentication)
 
-### Database errors
+GET /api/tasks?filter=all|pending|completed – List tasks
 
-Delete `server/models/dev.sqlite` and re-run `npm run init-db` to reset the database.
+POST /api/tasks – Create task ({ title, description? })
 
-## Technologies
+PUT /api/tasks/:id – Update task ({ title?, description?, completed? })
 
-- **Frontend:** React 18, TypeScript, Vite, Tailwind CSS, React Router
-- **Backend:** Express, Sequelize, SQLite, JWT, bcrypt
-- **Build:** Vite, PostCSS, Autoprefixer
+DELETE /api/tasks/:id – Delete task
 
-## License
+Include JWT in Authorization: Bearer <token> header for all task routes.
 
-MIT
+Troubleshooting
+
+Port 4000 is in use: change PORT in server/.env
+
+Client cannot connect to API: ensure server is running
+
+Database errors: delete server/models/dev.sqlite and re-run npm run init-db
+
+Technologies
+
+Frontend: React 18, TypeScript, Vite, Tailwind CSS
+
+Backend: Express, Sequelize, SQLite, JWT, bcrypt
+
+Build Tools: Vite, PostCSS, Autoprefixer
