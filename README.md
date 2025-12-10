@@ -69,7 +69,8 @@ NODE_ENV=development
 
 ## Running
 
-```cd server
+```
+cd server
 npm start
 
 cd client
